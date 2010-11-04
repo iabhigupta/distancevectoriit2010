@@ -10,6 +10,7 @@ package distancevector;
  * @author Klem
  */
 import ihm.Menu;
+import java.io.FileNotFoundException;
 
 /**
  *
@@ -20,8 +21,11 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-      new Menu();
+    public static void main(String[] args) throws FileNotFoundException {
+      //new Menu();
+    Parser test =new Parser("C:/Users/Klem/Documents/test.txt");
+    test.initialRound();
+
     }
 
 }
