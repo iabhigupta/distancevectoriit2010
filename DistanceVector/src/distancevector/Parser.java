@@ -47,20 +47,21 @@ public final void initialRound() throws FileNotFoundException{
       //first use a Scanner to get each line
       while ( scanner.hasNextInt() ){
       k++;
-       System.out.println("Number found:"+scanner.nextInt()+ "Number of ints"+ k);
+      scanner.nextInt();
+       //System.out.println("Number found:"+scanner.nextInt()+ "Number of ints"+ k);
       }
      
 
 
    if (Math.floor(java.lang.Math.sqrt(k))==java.lang.Math.sqrt(k))
    {
-       System.out.println("Ok taille matrice");
+      // System.out.println("Ok taille matrice");
        this.taille_Matrice= (int) java.lang.Math.sqrt(k);
    matrice = new int[this.taille_Matrice][this.taille_Matrice];
    }
    else
    {
-          System.out.println(" PAs Ok taille matrice");
+       //   System.out.println(" PAs Ok taille matrice");
    menu.invalidFile();         
    } 
      }
@@ -85,7 +86,7 @@ public final void initialRound() throws FileNotFoundException{
     try {
       //first use a Scanner to get each line
       while ( scanner.hasNextLine() ){
-          System.out.println("Ligne number" + lineNumber);
+         // System.out.println("Ligne number" + lineNumber);
         processLine( scanner.nextLine(), lineNumber);
         lineNumber++;
       }
@@ -117,11 +118,14 @@ public final void initialRound() throws FileNotFoundException{
     int columnNumber=0;
     while ( scanner.hasNextInt() ){
     matrice[lineNumber][columnNumber]=scanner.nextInt();
-    System.out.println("element " + lineNumber +", " + columnNumber +": "+ matrice[lineNumber][columnNumber]);
+   // System.out.println("element " + lineNumber +", " + columnNumber +": "+ matrice[lineNumber][columnNumber]);
     columnNumber++;
    
     }}
-
+public void instantiateMatrice() throws FileNotFoundException{
+    initialRound();
+    processLineByLine();
+}
 
 }
 

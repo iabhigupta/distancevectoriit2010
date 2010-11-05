@@ -11,8 +11,13 @@
 
 package ihm;
 
+import distancevector.Parser;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,7 +32,7 @@ public class Menu extends javax.swing.JFrame {
                 this.setVisible(true);
           
     }
-
+private DefaultTableModel model;
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -59,15 +64,13 @@ public class Menu extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Rooter"
             }
         ));
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
         jButton2.setText("Shortest Path");
@@ -145,15 +148,22 @@ public class Menu extends javax.swing.JFrame {
     int returnVal = chooser.showOpenDialog(this);
     if(returnVal == JFileChooser.APPROVE_OPTION) {
             Menu.file=chooser.getSelectedFile().getAbsolutePath();
+         Parser test =new Parser(file);
+            try {
+                test.instantiateMatrice();
+                this.showMatrix(test.getTaille_Matrice(), test.getMatrice());
+            } catch (FileNotFoundException ex) {
+                invalidFile();
+            }
     }
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     // TODO add your handling code here:
+addRow();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-;
+addColumn();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -187,4 +197,26 @@ public void invalidFile(){
         this.jLabel1.setText("Invalid .txt File");
 }
 
+public void showMatrix(int matrixLength, int[][] matrice){
+
+    
+    for (int k=0;k<matrixLength; k++){
+        addRow();
+        addColumn();
+    }
+for (int i=0;i<matrixLength; i++){
+    for (int j=0;j<matrixLength; j++){
+        
+     jTable1.setValueAt(matrice[i][j], i, j+1);
+    }
+}
+}
+public void addRow(){
+model= (DefaultTableModel) jTable1.getModel();
+model.addRow(new Object[]{model.getRowCount()+1});
+}
+public void addColumn(){
+model= (DefaultTableModel) jTable1.getModel();
+model.addColumn(model.getColumnCount());
+}
 }
