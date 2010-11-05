@@ -5,6 +5,7 @@
 
 package distancevector;
 
+import ihm.Menu;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -21,21 +22,72 @@ public class Parser {
   */
 
   private int taille_Matrice;
-
+  private Menu menu;
   private final File fFile;
+  private int[][] matrice;
 
   public Parser(String aFileName){
     fFile = new File(aFileName);
   }
 
+
+
+    public int[][] getMatrice() {
+        return matrice;
+    }
+
+    public int getTaille_Matrice() {
+        return taille_Matrice;
+    }
+
+public final void initialRound() throws FileNotFoundException{
+     Scanner scanner = new Scanner(new FileReader(fFile));
+     int k=0;
+     try {
+      //first use a Scanner to get each line
+      while ( scanner.hasNextInt() ){
+      k++;
+       System.out.println("Number found:"+scanner.nextInt()+ "Number of ints"+ k);
+      }
+     
+
+
+   if (Math.floor(java.lang.Math.sqrt(k))==java.lang.Math.sqrt(k))
+   {
+       System.out.println("Ok taille matrice");
+       this.taille_Matrice= (int) java.lang.Math.sqrt(k);
+   matrice = new int[this.taille_Matrice][this.taille_Matrice];
+   }
+   else
+   {
+          System.out.println(" PAs Ok taille matrice");
+   menu.invalidFile();         
+   } 
+     }
+      finally {
+      //ensure the underlying stream is always closed
+      //this only has any effect if the item passed to the Scanner
+      //constructor implements Closeable (which it does in this case).
+      scanner.close();
+    }
+
+
+
+}
+
+
+
   /** Template method that calls {@link #processLine(String)}.  */
   public final void processLineByLine() throws FileNotFoundException {
     //Note that FileReader is used, not File, since File is not Closeable
     Scanner scanner = new Scanner(new FileReader(fFile));
+    int lineNumber=0;
     try {
       //first use a Scanner to get each line
       while ( scanner.hasNextLine() ){
-        processLine( scanner.nextLine() );
+          System.out.println("Ligne number" + lineNumber);
+        processLine( scanner.nextLine(), lineNumber);
+        lineNumber++;
       }
     }
     finally {
@@ -46,30 +98,9 @@ public class Parser {
     }
   }
 
-public final void initialRound() throws FileNotFoundException{
-     Scanner scanner = new Scanner(new FileReader(fFile));
-     int k=0;
-     try {
-      //first use a Scanner to get each line
-      while ( scanner.hasNextInt() ){
-      k++;
-       System.out.println("Number found:"+scanner.nextInt()+ "Number of ints"+ k);
-      }}
 
-     finally {
-      //ensure the underlying stream is always closed
-      //this only has any effect if the item passed to the Scanner
-      //constructor implements Closeable (which it does in this case).
-      scanner.close();
-    }
-   if (Math.floor(java.lang.Math.sqrt(k))==java.lang.Math.sqrt(k))
-   {this.taille_Matrice= (int) java.lang.Math.sqrt(k);}
-   else
-   {
-   //Some message in the ihm.
-         ;
-   }
-}
+
+
   /**
    Overridable method for processing lines in different ways.
 
@@ -80,35 +111,17 @@ public final void initialRound() throws FileNotFoundException{
    <tt>disposition =  "grumpy"</tt>
    <tt>this is the name = this is the value</tt>
   */
-  protected void processLine(String aLine){
+  protected void processLine(String aLine, int lineNumber){
     //use a second Scanner to parse the content of each line
     Scanner scanner = new Scanner(aLine);
-    int k=0;
-    if ( scanner.hasNext() ){
-    k++;
-
-      
-    
-      
-      
-      /*  log("Name is : " + quote(name.trim()) + ", and Value is : " + quote(value.trim()) );
-    }
-    else {
-      log("Empty or invalid line. Unable to process.");
-    }
-    //no need to call scanner.close(), since the source is a String
- */
+    int columnNumber=0;
+    while ( scanner.hasNextInt() ){
+    matrice[lineNumber][columnNumber]=scanner.nextInt();
+    System.out.println("element " + lineNumber +", " + columnNumber +": "+ matrice[lineNumber][columnNumber]);
+    columnNumber++;
+   
     }}
 
- 
 
-  private static void log(Object aObject){
-    System.out.println(String.valueOf(aObject));
-  }
-
-  private String quote(String aText){
-    String QUOTE = "'";
-    return QUOTE + aText + QUOTE;
-  }
 }
 
