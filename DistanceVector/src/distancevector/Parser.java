@@ -5,6 +5,7 @@
 
 package distancevector;
 
+import distancevector.InvalidFileException;
 import ihm.Menu;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,7 +23,6 @@ public class Parser {
   */
 
   private int taille_Matrice;
-  private Menu menu;
   private final File fFile;
   private int[][] matrice;
 
@@ -40,7 +40,7 @@ public class Parser {
         return taille_Matrice;
     }
 
-public final void initialRound() throws FileNotFoundException{
+public final void initialRound() throws FileNotFoundException, InvalidFileException{
      Scanner scanner = new Scanner(new FileReader(fFile));
      int k=0;
      try {
@@ -62,7 +62,7 @@ public final void initialRound() throws FileNotFoundException{
    else
    {
        //   System.out.println(" PAs Ok taille matrice");
-   menu.invalidFile();         
+   throw new InvalidFileException();
    } 
      }
       finally {
@@ -122,7 +122,7 @@ public final void initialRound() throws FileNotFoundException{
     columnNumber++;
    
     }}
-public void instantiateMatrice() throws FileNotFoundException{
+public void instantiateMatrice() throws FileNotFoundException, InvalidFileException{
     initialRound();
     processLineByLine();
 }
