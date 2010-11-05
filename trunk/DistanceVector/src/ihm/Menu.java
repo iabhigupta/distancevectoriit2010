@@ -11,7 +11,9 @@
 
 package ihm;
 
+import distancevector.InvalidFileException;
 import distancevector.Parser;
+import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -155,15 +157,18 @@ private DefaultTableModel model;
             } catch (FileNotFoundException ex) {
                 invalidFile();
             }
+         catch (InvalidFileException ex){
+             invalidFile();
+         }
     }
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-addRow();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-addColumn();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -195,6 +200,7 @@ addColumn();
 
 public void invalidFile(){
         this.jLabel1.setText("Invalid .txt File");
+        this.jLabel1.setForeground(Color.red);
 }
 
 public void showMatrix(int matrixLength, int[][] matrice){
