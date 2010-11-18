@@ -14,6 +14,7 @@ package ihm;
 import distancevector.InvalidFileException;
 import distancevector.Parser;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,10 +31,19 @@ public class Menu extends javax.swing.JFrame {
 
     /** Creates new form Menu */
     public Menu() {
+       
                 this.initComponents();
                 this.setVisible(true);
           
     }
+
+    public Menu(String title) throws HeadlessException {
+        super(title);
+        this.initComponents();
+         this.setVisible(true);
+    }
+
+
 private DefaultTableModel model;
     /** This method is called from within the constructor to
      * initialize the form.
@@ -69,7 +79,7 @@ private DefaultTableModel model;
 
             },
             new String [] {
-                "Rooter"
+                "Router"
             }
         ));
         jTable1.getTableHeader().setReorderingAllowed(false);
@@ -82,9 +92,14 @@ private DefaultTableModel model;
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("File");
 
@@ -154,6 +169,7 @@ private DefaultTableModel model;
             try {
                 test.instantiateMatrice();
                 this.showMatrix(test.getTaille_Matrice(), test.getMatrice());
+                this.setComboboxes(test.getTaille_Matrice());
             } catch (FileNotFoundException ex) {
                 invalidFile();
             }
@@ -170,6 +186,10 @@ private DefaultTableModel model;
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
     * @param args the command line arguments
@@ -203,9 +223,7 @@ public void invalidFile(){
         this.jLabel1.setForeground(Color.red);
 }
 
-public void showMatrix(int matrixLength, int[][] matrice){
-
-    
+public void showMatrix(int matrixLength, int[][] matrice){    
     for (int k=0;k<matrixLength; k++){
         addRow();
         addColumn();
@@ -217,6 +235,13 @@ for (int i=0;i<matrixLength; i++){
     }
 }
 }
+public void setComboboxes(int matrixLength){
+    for (int j=2;j<matrixLength+1;j++){
+        jComboBox1.addItem(j);
+        jComboBox2.addItem(j);
+    }
+}
+
 public void addRow(){
 model= (DefaultTableModel) jTable1.getModel();
 model.addRow(new Object[]{model.getRowCount()+1});

@@ -44,6 +44,10 @@ public final void initialRound() throws FileNotFoundException, InvalidFileExcept
      Scanner scanner = new Scanner(new FileReader(fFile));
      int k=0;
      try {
+
+         if (!scanner.hasNextInt()){
+             throw new InvalidFileException();
+         }
       //first use a Scanner to get each line
       while ( scanner.hasNextInt() ){
       k++;
@@ -105,12 +109,6 @@ public final void initialRound() throws FileNotFoundException, InvalidFileExcept
   /**
    Overridable method for processing lines in different ways.
 
-   <P>This simple default implementation expects simple name-value pairs, separated by an
-   '=' sign. Examples of valid input :
-   <tt>height = 167cm</tt>
-   <tt>mass =  65kg</tt>
-   <tt>disposition =  "grumpy"</tt>
-   <tt>this is the name = this is the value</tt>
   */
   protected void processLine(String aLine, int lineNumber){
     //use a second Scanner to parse the content of each line
