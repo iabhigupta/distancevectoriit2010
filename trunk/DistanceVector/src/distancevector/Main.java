@@ -22,7 +22,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException {
-      new Menu();
+      new Menu("CS 542 Project: DV algorithm     ");
 
 
       /* Code pour récupérer la matrice générée par le parser
