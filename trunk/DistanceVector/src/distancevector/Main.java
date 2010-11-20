@@ -22,8 +22,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException {
-     // new Menu("CS 542 Project: DV algorithm     ");
-        int [][] matrix = {
+      new Menu("CS 542 Project: DV algorithm     ");
+    /*    int [][] matrix = {
 			{0, 2, 5, 1, -1, -1},
 			{2, 0, 3, 2, -1, -1},
 			{5, 3, 0, 3, 1, 5},
@@ -45,7 +45,7 @@ int k=0;
 
 }
 System.out.println(path);
-
+*/
 //int [][] matrix2 = test2.fillMatrix(test.getNode(), matrix);
 //matrix=test.matrixForIhm(matrix, test.getNode());
 /*
