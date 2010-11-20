@@ -11,8 +11,10 @@
 
 package ihm;
 
+import distancevector.DistanceVector;
 import distancevector.InvalidFileException;
 import distancevector.Parser;
+import distancevector.PrintShortestPath;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.io.FileNotFoundException;
@@ -28,6 +30,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Menu extends javax.swing.JFrame {
     private static String file;
+private int[][] matrixInit;
+private int[][] matrix;
+
+private Boolean init= true;
 
     /** Creates new form Menu */
     public Menu() {
@@ -61,6 +67,8 @@ private DefaultTableModel model;
         jComboBox1 = new javax.swing.JComboBox();
         jComboBox2 = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -101,6 +109,8 @@ private DefaultTableModel model;
             }
         });
 
+        jLabel3.setText("Path:");
+
         jMenu1.setText("File");
 
         jMenu2.setText("Load");
@@ -124,12 +134,16 @@ private DefaultTableModel model;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -146,7 +160,11 @@ private DefaultTableModel model;
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton2)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jLabel1)
@@ -170,6 +188,8 @@ private DefaultTableModel model;
                 test.instantiateMatrice();
                 this.showMatrix(test.getTaille_Matrice(), test.getMatrice());
                 this.setComboboxes(test.getTaille_Matrice());
+                matrixInit=test.getMatrice();
+
             } catch (FileNotFoundException ex) {
                 invalidFile();
             }
@@ -180,11 +200,26 @@ private DefaultTableModel model;
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+this.copyMatrix();
+DistanceVector test= new DistanceVector(matrix);
+//PrintShortestPath test2 = new PrintShortestPath(matrix, test);
+int [][] matrix2 = test.matrixForIhm(matrix, test.getNode());
+this.showMatrix(matrix2.length,matrix2);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+DistanceVector test= new DistanceVector(matrixInit);
+PrintShortestPath test2 = new PrintShortestPath(matrixInit, test,jComboBox1.getSelectedIndex()+1,jComboBox2.getSelectedIndex()+1);
 
+int [] test3= test2.getPath();
+String pathString = "Path:";
+
+int k=0;
+
+   while (test3[k]!=0){
+    pathString = pathString+ "  " + String.valueOf(test3[k]);
+    k++;}
+jLabel3.setText(pathString);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
@@ -209,6 +244,8 @@ private DefaultTableModel model;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -224,10 +261,14 @@ public void invalidFile(){
 }
 
 public void showMatrix(int matrixLength, int[][] matrice){    
+   if (init){
     for (int k=0;k<matrixLength; k++){
         addRow();
         addColumn();
     }
+   }
+   init= false;
+
 for (int i=0;i<matrixLength; i++){
     for (int j=0;j<matrixLength; j++){
         
@@ -236,6 +277,7 @@ for (int i=0;i<matrixLength; i++){
 }
 }
 public void setComboboxes(int matrixLength){
+
     for (int j=2;j<matrixLength+1;j++){
         jComboBox1.addItem(j);
         jComboBox2.addItem(j);
@@ -250,4 +292,16 @@ public void addColumn(){
 model= (DefaultTableModel) jTable1.getModel();
 model.addColumn(model.getColumnCount());
 }
+
+
+public void copyMatrix(){
+    matrix = new int[matrixInit.length][matrixInit.length];
+    for (int i=0;i<matrixInit.length;i++){
+  for (int j=0;j<matrixInit.length;j++){
+matrix[i][j]=matrixInit[i][j];
+  }
+
+}
+}
+
 }
