@@ -22,8 +22,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException {
-      new Menu("CS 542 Project: DV algorithm     ");
-    /*    int [][] matrix = {
+     // new Menu("CS 542 Project: DV algorithm     ");
+        int [][] matrix = {
 			{0, 2, 5, 1, -1, -1},
 			{2, 0, 3, 2, -1, -1},
 			{5, 3, 0, 3, 1, 5},
@@ -39,13 +39,13 @@ String path = "";
 System.out.println("Impression Path");
 int k=0;
    while (test3[k]!=0){
-    path = path+ " - " + String.valueOf(test3[k]);
+    path = path+ "  " + String.valueOf(test3[k]);
     k++;
     // System.out.println(test3[k]);
 
 }
 System.out.println(path);
-*/
+
 //int [][] matrix2 = test2.fillMatrix(test.getNode(), matrix);
 //matrix=test.matrixForIhm(matrix, test.getNode());
 /*

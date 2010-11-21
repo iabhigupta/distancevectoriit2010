@@ -69,6 +69,7 @@ private DefaultTableModel model;
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -111,6 +112,8 @@ private DefaultTableModel model;
 
         jLabel3.setText("Path:");
 
+        jLabel4.setText("Total cost:");
+
         jMenu1.setText("File");
 
         jMenu2.setText("Load");
@@ -146,7 +149,8 @@ private DefaultTableModel model;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel4))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -163,7 +167,10 @@ private DefaultTableModel model;
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4))
                             .addComponent(jLabel2)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
@@ -208,10 +215,17 @@ this.showMatrix(matrix2.length,matrix2);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-DistanceVector test= new DistanceVector(matrixInit);
-PrintShortestPath test2 = new PrintShortestPath(matrixInit, test,jComboBox1.getSelectedIndex()+1,jComboBox2.getSelectedIndex()+1);
 
+this.copyMatrix();
+DistanceVector test= new DistanceVector(matrix);
+PrintShortestPath test2 = new PrintShortestPath(matrix, test,jComboBox1.getSelectedIndex()+1,jComboBox2.getSelectedIndex()+1);
+int [][] mat_res = test.matrixForIhm(matrix, test.getNode());
 int [] test3= test2.getPath();
+
+
+
+
+
 String pathString = "Path:";
 
 int k=0;
@@ -220,6 +234,7 @@ int k=0;
     pathString = pathString+ "  " + String.valueOf(test3[k]);
     k++;}
 jLabel3.setText(pathString);
+jLabel4.setText("Total cost: " + mat_res[jComboBox1.getSelectedIndex()][jComboBox2.getSelectedIndex()]);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
@@ -246,6 +261,7 @@ jLabel3.setText(pathString);
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

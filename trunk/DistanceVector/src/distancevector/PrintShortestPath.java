@@ -11,11 +11,7 @@ public class PrintShortestPath {
         private int from_;
         private int to_;
 
-        public void initPath(){
-            for (int i=0;i<100;i++){
-                path[i]=-1;
-            }
-        }
+    
 	
 	public PrintShortestPath(){
 		return;
@@ -108,6 +104,11 @@ public class PrintShortestPath {
 		int temp;
 
 		if (node[theRow][theCol].getIndex() == theCol ){
+                     if (pathIndex==0){
+                      path[pathIndex]=theRow+1;
+                      pathIndex++;
+                    }
+                    
 			System.out.println(theRow+1 + " - " + (theCol+1) );
 			temp = lastCost + node[theRow][theCol].getCost();
 			lastCost = temp;
